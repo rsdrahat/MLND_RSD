@@ -25,29 +25,48 @@ _(approx. 1 paragraph)_
 
 For the locations in which Kiva has active loans, the objective is to estimate the welfare level of borrowers in specific regions, based on shared economic and demographic characteristics, on as granular a level as possible. Ideally the solution will leverage information such as the borrowers gender, average welfare metrics in the area, and borrowing behaviour in order to estimate the borrowers welfare level.
 
+I will also evaluate the possibility of carrying out a performance evaluation of Kiva loans - this will depend heavily on data limitations. At least, I hope to include such an analysis for a certain region which has particularly granular poverty data.
+
 ### Datasets and Inputs
 _(approx. 2-3 paragraphs)_
 
-In this section, the dataset(s) and/or input(s) being considered for the project should be thoroughly described, such as how they relate to the problem and why they should be used. Information such as how the dataset or input is (was) obtained, and the characteristics of the dataset or input, should be included with relevant references and citations as necessary It should be clear how the dataset(s) or input(s) will be used in the project and whether their use is appropriate given the context of the problem.
+_In this section, the dataset(s) and/or input(s) being considered for the project should be thoroughly described, such as how they relate to the problem and why they should be used. Information such as how the dataset or input is (was) obtained, and the characteristics of the dataset or input, should be included with relevant references and citations as necessary It should be clear how the dataset(s) or input(s) will be used in the project and whether their use is appropriate given the context of the problem._
 
-Kiva has provided a dataset of loans issued over the last two years.  and participants are invited to use this data as well as source external public datasets to help Kiva build
+Kiva has provided a dataset of loans issued over the last two years. This includes characteristics of the loan such as loan amount, activity, sector, location and borrower genders. I will need to pair this data with external data of geographical poverty estimates. Thus far, I have found three relevant datasets that I can map the Kiva-provided one onto in order to provide a solution. These are:
+* OPHI's MPI
+* Global Findex
+* World Bank Living Standards survey
+
+The former two are global but not very granular, whereas the opposite is true for the last. Any further data I find during the course of the project may also be leveraged.  
 
 
 
 ### Solution Statement
 _(approx. 1 paragraph)_
 
-In this section, clearly describe a solution to the problem. The solution should be applicable to the project domain and appropriate for the dataset(s) or input(s) given. Additionally, describe the solution thoroughly such that it is clear that the solution is quantifiable (the solution can be expressed in mathematical or logical terms) , measurable (the solution can be measured by some metric and clearly observed), and replicable (the solution can be reproduced and occurs more than once).
+_In this section, clearly describe a solution to the problem. The solution should be applicable to the project domain and appropriate for the dataset(s) or input(s) given. Additionally, describe the solution thoroughly such that it is clear that the solution is quantifiable (the solution can be expressed in mathematical or logical terms) , measurable (the solution can be measured by some metric and clearly observed), and replicable (the solution can be reproduced and occurs more than once)._
+
+The solution to the problem will be the production and tuning of a model which predicts my chosen dependent variable, Multi-dimensional Poverty Index (MPI), using the input variables from my cleaned and processed data.
+
+I will want my model to be as **localised** as possible, (utilising as granular data as we can) and as **precise** (low standard errors) as possible.
 
 ### Benchmark Model
 _(approximately 1-2 paragraphs)_
 
-In this section, provide the details for a benchmark model or result that relates to the domain, problem statement, and intended solution. Ideally, the benchmark model or result contextualizes existing methods or known information in the domain and problem given, which could then be objectively compared to the solution. Describe how the benchmark model or result is measurable (can be measured by some metric and clearly observed) with thorough detail.
+_In this section, provide the details for a benchmark model or result that relates to the domain, problem statement, and intended solution. Ideally, the benchmark model or result contextualizes existing methods or known information in the domain and problem given, which could then be objectively compared to the solution. Describe how the benchmark model or result is measurable (can be measured by some metric and clearly observed) with thorough detail._
+
+The benchmark model for this problem will be Kiva's own current poverty targetting system. Currently they use the OPHI MPI data as follows:
+* Merge in the MPI with the loan data by region at as granular a level as the data allows.
+* Take the average across all regions (weighted by volume) for a given loan theme. (This is the Loan Theme MPI Score)
+
+I will need to provide a model that is more localised and precise than this very simple one.
 
 ### Evaluation Metrics
 _(approx. 1-2 paragraphs)_
 
-In this section, propose at least one evaluation metric that can be used to quantify the performance of both the benchmark model and the solution model. The evaluation metric(s) you propose should be appropriate given the context of the data, the problem statement, and the intended solution. Describe how the evaluation metric(s) are derived and provide an example of their mathematical representations (if applicable). Complex evaluation metrics should be clearly defined and quantifiable (can be expressed in mathematical or logical terms).
+_In this section, propose at least one evaluation metric that can be used to quantify the performance of both the benchmark model and the solution model. The evaluation metric(s) you propose should be appropriate given the context of the data, the problem statement, and the intended solution. Describe how the evaluation metric(s) are derived and provide an example of their mathematical representations (if applicable). Complex evaluation metrics should be clearly defined and quantifiable (can be expressed in mathematical or logical terms)._
+
+
 
 ### Project Design
 _(approx. 1 page)_
