@@ -1,13 +1,11 @@
 # Machine Learning Engineer Nanodegree
 ## Capstone Proposal
 Rahat Dewan  
-April 12th, 2018
+April 18th, 2018
 
-## Proposal
-_(approx. 2-3 pages)_
+
 
 ### Domain Background
-_(approx. 1-2 paragraphs)_
 
 Kiva Microfunds, (more commonly known as Kiva.org) is an online, non-profit crowdfunding initiative created to extend financial services to the poor and financially excluded around the world - in particular low-income entrepreneurs and students. Over $1 billion in loans have thus far been provided to over 2 million people through the platform, with a repayment rate of between 98 and 99 per cent. Kiva does not collect any interest on the loans it facilitates and Kiva lenders to not make interest on loans.
 
@@ -21,39 +19,37 @@ My personal motivation for undertaking this project in particular stems from my 
 
 
 ### Problem Statement
-_(approx. 1 paragraph)_
 
 For the locations in which Kiva has active loans, the objective is to estimate the welfare level of borrowers in specific regions, based on shared economic and demographic characteristics, on as granular a level as possible. Ideally the solution will leverage information such as the borrowers gender, average welfare metrics in the area, and borrowing behaviour in order to estimate the borrowers welfare level.
 
 I will also evaluate the possibility of carrying out a performance evaluation of Kiva loans - this will depend heavily on data limitations. At least, I hope to include such an analysis for a certain region which has particularly granular poverty data.
 
 ### Datasets and Inputs
-_(approx. 2-3 paragraphs)_
-
-_In this section, the dataset(s) and/or input(s) being considered for the project should be thoroughly described, such as how they relate to the problem and why they should be used. Information such as how the dataset or input is (was) obtained, and the characteristics of the dataset or input, should be included with relevant references and citations as necessary It should be clear how the dataset(s) or input(s) will be used in the project and whether their use is appropriate given the context of the problem._
 
 Kiva has provided a dataset of loans issued over the last two years. This includes characteristics of the loan such as loan amount, activity, sector, location and borrower genders. I will need to pair this data with external data of geographical poverty estimates. Thus far, I have found three relevant datasets that I can map the Kiva-provided one onto in order to provide a solution. These are:
 * OPHI's MPI
 * Global Findex
 * World Bank Living Standards survey
 
-The former two are global but not very granular, whereas the opposite is true for the last. Any further data I find during the course of the project may also be leveraged.  
+The former two are global but not very granular, whereas the opposite is true for the last.
+
+Any further data I find during the course of the project may also be leveraged to provide more localised predictions, such as:
+* Means testing data (consumption, household size, various other indicators)
+* Spatial data including satellite data, environmental and climate data.
+* Socioeconomic and Demographic data
+* Conflict data
+* Demographic and health surveys
+
 
 
 
 ### Solution Statement
-_(approx. 1 paragraph)_
-
-_In this section, clearly describe a solution to the problem. The solution should be applicable to the project domain and appropriate for the dataset(s) or input(s) given. Additionally, describe the solution thoroughly such that it is clear that the solution is quantifiable (the solution can be expressed in mathematical or logical terms) , measurable (the solution can be measured by some metric and clearly observed), and replicable (the solution can be reproduced and occurs more than once)._
 
 The solution to the problem will be the production and tuning of a model which predicts my chosen dependent variable, Multi-dimensional Poverty Index (MPI), using the input variables from my cleaned and processed data.
 
-I will want my model to be as **localised** as possible, (utilising as granular data as we can) and as **precise** (low standard errors) as possible.
+I will want my model to be as **localised** as possible, (providing predictions on as granular a level as possible), as **global/extensive** (covering as much of the world or Kiva's target countries as possible) and as **precise** (low standard errors) as possible.
 
 ### Benchmark Model
-_(approximately 1-2 paragraphs)_
-
-_In this section, provide the details for a benchmark model or result that relates to the domain, problem statement, and intended solution. Ideally, the benchmark model or result contextualizes existing methods or known information in the domain and problem given, which could then be objectively compared to the solution. Describe how the benchmark model or result is measurable (can be measured by some metric and clearly observed) with thorough detail._
 
 The benchmark model for this problem will be Kiva's own current poverty targetting system. Currently they use the OPHI MPI data as follows:
 * Merge in the MPI with the loan data by region at as granular a level as the data allows.
@@ -62,23 +58,39 @@ The benchmark model for this problem will be Kiva's own current poverty targetti
 I will need to provide a model that is more localised and precise than this very simple one.
 
 ### Evaluation Metrics
-_(approx. 1-2 paragraphs)_
 
-_In this section, propose at least one evaluation metric that can be used to quantify the performance of both the benchmark model and the solution model. The evaluation metric(s) you propose should be appropriate given the context of the data, the problem statement, and the intended solution. Describe how the evaluation metric(s) are derived and provide an example of their mathematical representations (if applicable). Complex evaluation metrics should be clearly defined and quantifiable (can be expressed in mathematical or logical terms)._
-
-
+While I will be exploring other models/classifiers, my default and first avenue of enquiry will be a simple OLS regression on selected characteristics. Thus my evaluation metrics in this case will be R<sup>2</sup>, significance of features (p-values) and RMSE.
 
 ### Project Design
-_(approx. 1 page)_
 
 In this final section, summarize a theoretical workflow for approaching a solution given the problem. Provide thorough discussion for what strategies you may consider employing, what analysis of the data might be required before being used, or which algorithms will be considered for your implementation. The workflow and discussion that you provide should align with the qualities of the previous sections. Additionally, you are encouraged to include small visualizations, pseudocode, or diagrams to aid in describing the project design, but it is not required. The discussion should clearly outline your intended workflow of the capstone project.
 
+#### Data Gathering
+The first step will be to gather all relevant data from the various sources I have listed above. Throughout the project, if I happen across more useful data, I may choose to include it and see if better predictions can be made.
+#### Data Cleaning and Processing
+Once all the data has been gathered, it will need to be cleaned. This will entail removing missing values, outliers or other problematic observations. Then, it will need to be processed such that it can be merged into a complete dataset ready for analysis.
+#### Feature Selection and Transformation
+Feature selection will be an integral part of the project, particularly if there are a lot of potential features yielded from the data. While evaluating usefulness and relevance of proposed features, I will consider utilising a PCA procedure or some other feature transformation method. The features may be tweaked and refined gradually as I progress through the project.
+#### First (Benchmark) Model: OLS
+My first model will be a simple OLS regression. After tweaking features and specifications to get the most significant and explanatory OLS results I can, I will consider this my personal benchmark model (it is hoped that it will itself be a more successful model than the current Kiva model.) As much as possible, I will take account of traditional econometric considerations such as tests for heteroskedasticity and autocorrelation, and refine my model accordingly.
+#### Experimentation: Different Classifiers & Features
+Other classifiers will be considered in the hopes of improving upon the OLS model. The main one under consideration currently is XGBoost. I will choose the most successful classifier after considering evaluation metrics.
+#### In-depth Analysis of a Single Region
+If I find appropriate data, I will carry out a more thorough and detailed analysis for a single region or country, in order to see how detailed and precise I can get my model - and also consider carrying out an impact evaluation. This will be useful for Kiva in the future if more data is available, as they will be able expand this more thorough analysis to other regions.
+
+### References
+
+[Kaggle, Data Science for Good: Kiva Crowdfunding.](https://www.kaggle.com/kiva/data-science-for-good-kiva-crowdfunding)  
+
+[Wikipedia, Kiva](https://en.wikipedia.org/wiki/Kiva_(organization))
+
+[Kiva.org](https://www.kiva.org)
+
+[OPHI, Global Multidimensional Poverty Index](http://ophi.org.uk/multidimensional-poverty-index/)
+
+[The World Bank, Global Findex](http://www.worldbank.org/en/programs/globalfindex)
+
+[The World Bank, Living Standards Measurement Study](http://surveys.worldbank.org/lsms)
+
+
 -----------
-
-**Before submitting your proposal, ask yourself. . .**
-
-- Does the proposal you have written follow a well-organized structure similar to that of the project template?
-- Is each section (particularly **Solution Statement** and **Project Design**) written in a clear, concise and specific fashion? Are there any ambiguous terms or phrases that need clarification?
-- Would the intended audience of your project be able to understand your proposal?
-- Have you properly proofread your proposal to assure there are minimal grammatical and spelling mistakes?
-- Are all the resources used for this project correctly cited and referenced?
